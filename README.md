@@ -9,6 +9,9 @@ Right now, I have made different python scripts for different experiments like r
 pulse functions in the way it has been implemented in the paper.
 
 qiskit.providers.ibmq.experiment
+
 This sevice is not available to all accounts.
-So, I am just making pulses and sending jobs to ibmq_armonk
-armonk is down from three days now
+
+So, I am just making pulses and sending jobs to ibmq_armonk.
+
+armonk is down from three days now.
