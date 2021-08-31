@@ -40,5 +40,11 @@ def rabi_measurment(backend, rough_q_freq_Hz, qubit_n=0, mem_slot=0, rabi_points
         drive_period=fit_params[2]
         pi_ampl=abs(drive_period/2)
         return pi_ampl
+    else:
+        print(stats.value)
+        print(job.error_message())
+
+
+
 
 
