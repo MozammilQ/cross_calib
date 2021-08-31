@@ -30,7 +30,7 @@ def rabi_measurment(backend, rough_q_freq_Hz, qubit_n=0, mem_slot=0, rabi_points
         rabi_results=job.result(timeout=120)
         rabi_val=[]
         for i in range(rabi_points):
-            rabi_val.append(rabi_results.get_memory(i)[qubit_n]*scale_factor)
+            rabi_val.append(rabi_results.get_memory(i)[qubit_n]*scale_fact)
 
         rabi_val=np.real(remove_baseline(rabi_val))
 
