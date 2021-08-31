@@ -30,7 +30,7 @@ def qubit_freq_sweep(backend, qubit_n=0, mem_slot=0, freq_span_MHz=30, freq_step
 
     print("\nJob submitted waiting for completion\n")
     job.wait_for_final_state(timeout=None, wait=wait_time, callback=None)
-
+    time.sleep(5)
     stats=job.status()
 
     if(stats.name=="DONE"):

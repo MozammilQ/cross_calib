@@ -1,6 +1,6 @@
 from .common_funx import *
 
-def baseline_remove(values):
+def remove_baseline(values):
     return np.array(values) - np.mean(values)
 
 def rabi_measurment(backend, rough_q_freq_Hz, qubit_n=0, mem_slot=0, rabi_points=50, drive_ampl_min=0, drive_ampl_max=0.75, drive_sigma_us=0.075,  shots_per_point=1024):
@@ -23,11 +23,11 @@ def rabi_measurment(backend, rough_q_freq_Hz, qubit_n=0, mem_slot=0, rabi_points
     
     print("\nJob submitted waiting for completion\n")
     job.wait_for_final_state(timeout=None, wait=wait_time, callback=None)
-
+    time.sleep(5)
     stats=job.status()
 
     if(stats.name=="DONE"):
-        rabi_results=job.results(timeout=120)
+        rabi_results=job.result(timeout=120)
         rabi_val=[]
         for i in range(rabi_points):
             rabi_val.append(rabi_results.get_memory(i)[qubit_n]*scale_factor)
@@ -36,7 +36,7 @@ def rabi_measurment(backend, rough_q_freq_Hz, qubit_n=0, mem_slot=0, rabi_points
 
         rabi_init_param=[3, 0.1, 0.3, 0]
         rabi_fnx=lambda x, A, B, drive_period, phi: (A*np.cos(2*np.pi*x/drive_period - phi)+B)
-        fit_params, y_fit=fit_function(drive_ampl, rabi_val, rabi_fnx, rabi_init_param)
+        fit_params, y_fit=fit_fnx(drive_ampl, rabi_val, rabi_fnx, rabi_init_param)
         drive_period=fit_params[2]
         pi_ampl=abs(drive_period/2)
         return pi_ampl
