@@ -18,11 +18,15 @@ def rabi_measurment(backend, rough_q_freq_Hz, qubit_n=0, mem_slot=0, rabi_points
         rabi_schedl=[rabi_sched.assign_parameters({drive_ampl: a}, inplace=False) for a in drive_ampls]
 
     job=backend.run(rabi_schedl, meas_level=1, meas_return='avg', shots=shots_per_point)
-    stats=job.status()
 
+    ##########################################
+    print("Job submitted waiting a minute")
+    time.sleep(60)
+    ##########################################
+    
+    stats=job.status()
     while(stats.name!='DONE'):
-        print("From Rabi Measurment")
-        println(stats.value)
+        print(f"From qubit_freq_sweep -->  {stats.value}\n")
         time.sleep(wait_time)
         stats=job.status()
 

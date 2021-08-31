@@ -10,7 +10,7 @@ GHz=1.0E+9
 us=1.0E-6
 ns=1.0E-9
 scale_fact=1.0E-14
-wait_time=120
+wait_time=45
 
 def x_16(x):
     return int(x+8)-int((x+8)%16)
