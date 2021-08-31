@@ -36,7 +36,7 @@ def rabi_measurment(backend, rough_q_freq_Hz, qubit_n=0, mem_slot=0, rabi_points
 
         rabi_init_param=[3, 0.1, 0.3, 0]
         rabi_fnx=lambda x, A, B, drive_period, phi: (A*np.cos(2*np.pi*x/drive_period - phi)+B)
-        fit_params, y_fit=fit_fnx(drive_ampl, rabi_val, rabi_fnx, rabi_init_param)
+        fit_params, y_fit=fit_fnx(drive_ampls, rabi_val, rabi_fnx, rabi_init_param)
         drive_period=fit_params[2]
         pi_ampl=abs(drive_period/2)
         return pi_ampl
