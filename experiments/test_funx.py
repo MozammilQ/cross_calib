@@ -7,7 +7,7 @@ def classify(point: complex):
     return int(distance(point, mean_exc) < distance(point, mean_gnd))
 
 
-def test_funx(backend, pi_ampl, rough_qubit_freq_Hz, qubit_n=0, drive_sigma_us=0.075, shots_per_freq=1024):
+def test_funx(backend, pi_ampl, rough_q_freq_Hz, qubit_n=0, drive_sigma_us=0.075, shots_per_freq=1024):
     drive_sigma_sec=drive_sigma_us*us
     drive_duration_sec=drive_sigma_sec*8
 
@@ -38,8 +38,8 @@ def test_funx(backend, pi_ampl, rough_qubit_freq_Hz, qubit_n=0, drive_sigma_us=0
 
     if(stats.name=="DONE"):
         gnd_exc_results=job.result(timeout=120)
-        gnd_results=gnd_exc_results.get_memory(0)[:, qubit]*scale_fact
-        exc_results=gnd_exc_results.get_memory(1)[:, qubit]*scale_fact
+        gnd_results=gnd_exc_results.get_memory(0)[:, qubit_n]*scale_fact
+        exc_results=gnd_exc_results.get_memory(1)[:, qubit_n]*scale_fact
         mean_gnd=np.mean(gnd_results)
         mean_exc=np.mean(exc_results)
 
