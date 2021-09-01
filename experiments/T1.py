@@ -1,4 +1,5 @@
 from .common_funx import *
+from experiments.pulse_collection import Pi_Pulse
 
 def T1(backend, pi_ampl, rough_q_freq_Hz, mean_gnd, mean_exc, qubit_n=0, mem_slot=0, drive_sigma_us=0.075, time_max_us=450, time_step_us=6.5, num_shots=256):
     time_max_sec=time_max_us*us
@@ -8,19 +9,14 @@ def T1(backend, pi_ampl, rough_q_freq_Hz, mean_gnd, mean_exc, qubit_n=0, mem_slo
     drive_sigma_sec=drive_sigma_us*us
     drive_duration_sec=drive_sigma_sec*8
 
-    with pulse.build(backend) as pi_pulse:
-        drive_duration = x_16(pulse.seconds_to_samples(drive_duration_sec))
-        drive_sigma = pulse.seconds_to_samples(drive_sigma_sec)
-        drive_chanl = pulse.drive_channel(qubit_n)
-        gussn=pulse.Gaussian(duration=drive_duration, amp=pi_ampl, sigma=drive_sigma, name="pi_pulse")
-        pulse.play(gussn, drive_chanl)
+    pi_pls=Pi_Pulse(backend=backend, pi_ampl=pi_ampl, qubit_n=0, drive_sigma_us=0.075, pulse_name="pi_pulse")
 
     t1_schelds = []
     for delay in delay_times_sec:
         with pulse.build(backend=backend, default_alignment='sequential', name=f"T1 delay = {delay / ns} ns") as t1_schedule:
             drive_chanl = pulse.drive_channel(qubit_n)
             pulse.set_frequency(rough_q_freq_Hz, drive_chanl)
-            pulse.call(pi_pulse)
+            pulse.call(pi_pls)
             pulse.delay(x_16(pulse.seconds_to_samples(delay)), drive_chanl)
             pulse.measure(qubits=[qubit_n], registers=[pulse.MemorySlot(mem_slot)])
         t1_schelds.append(t1_schedule)

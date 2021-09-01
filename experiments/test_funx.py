@@ -1,15 +1,11 @@
 from .common_funx import *
+from experiments.pulse_collection import Pi_Pulse
 
 def test_funx(backend, pi_ampl, rough_q_freq_Hz, qubit_n=0, mem_slot=0, drive_sigma_us=0.075, shots_per_freq=1024):
     drive_sigma_sec=drive_sigma_us*us
     drive_duration_sec=drive_sigma_sec*8
 
-    with pulse.build(backend) as pi_pulse:
-        drive_duration = x_16(pulse.seconds_to_samples(drive_duration_sec))
-        drive_sigma = pulse.seconds_to_samples(drive_sigma_sec)
-        drive_chanl = pulse.drive_channel(qubit_n)
-        gussn=pulse.Gaussian(duration=drive_duration, amp=pi_ampl, sigma=drive_sigma, name="pi_pulse")
-        pulse.play(gussn, drive_chanl)
+    pi_pls=Pi_Pulse(backend=backend, pi_ampl=pi_ampl, qubit_n=0, drive_sigma_us=0.075, pulse_name="pi_pulse")
 
     with pulse.build(backend=backend, default_alignment='sequential', name='ground state') as gnd_schedule:
         drive_chanl = pulse.drive_channel(qubit_n)
@@ -19,7 +15,7 @@ def test_funx(backend, pi_ampl, rough_q_freq_Hz, qubit_n=0, mem_slot=0, drive_si
     with pulse.build(backend=backend, default_alignment='sequential', name='excited state') as exc_schedule:
         drive_chanl = pulse.drive_channel(qubit_n)
         pulse.set_frequency(rough_q_freq_Hz, drive_chanl)
-        pulse.call(pi_pulse)
+        pulse.call(pi_pls)
         pulse.measure(qubits=[qubit_n], registers=[pulse.MemorySlot(mem_slot)])
 
     job = backend.run([gnd_schedule, exc_schedule], meas_level=1, meas_return='single', shots=shots_per_freq)

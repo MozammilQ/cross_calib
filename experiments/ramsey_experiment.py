@@ -1,5 +1,6 @@
 
 from .common_funx import *
+from experiments.pulse_collection import X90_Pulse
 
 def ramsey_experiment(backend, pi_ampl, rough_q_freq_Hz, mean_gnd, mean_exc, qubit_n=0, mem_slot=0, time_max_us=1.8, time_step_us=0.025, drive_sigma_us=0.075, wait_time=45, num_shots=256):
     time_max_sec=time_max_us*us
@@ -11,24 +12,18 @@ def ramsey_experiment(backend, pi_ampl, rough_q_freq_Hz, mean_gnd, mean_exc, qub
 
     delay_times_sec = np.arange(0.1*us, time_max_sec, time_step_sec)
 
-    with pulse.build(backend) as x90_pulse:
-        drive_duration=x_16(pulse.seconds_to_samples(drive_duration_sec))
-        drive_sigma=pulse.seconds_to_samples(drive_sigma_sec)
-        drive_chanl=pulse.drive_channel(qubit_n)
-        gauss_pulse=pulse.Gaussian(duration=drive_duration, amp=drive_ampl, sigma=drive_sigma, name='x90_pulse')
-        pulse.play(gauss_pulse, drive_chanl)
-
     detuning_MHz=2
     ramsey_frequency=round(rough_q_freq_Hz+detuning_MHz*MHz, 6)
+    x90_pls=X90_Pulse(backend=backend, drive_ampl=pi_ampl/2, qubit_n=0, drive_sigma_us=0.075, pulse_name="x90_pulse")
 
     ramsey_schedules = []
     for delay in delay_times_sec:
         with pulse.build(backend=backend, default_alignment='sequential', name=f"Ramsey delay = {delay / ns} ns") as ramsey_schedule:
             drive_chanl=pulse.drive_channel(qubit_n)
             pulse.set_frequency(ramsey_frequency, drive_chanl)
-            pulse.call(x90_pulse)
+            pulse.call(x90_pls)
             pulse.delay(x_16(pulse.seconds_to_samples(delay)), drive_chanl)
-            pulse.call(x90_pulse)
+            pulse.call(x90_pls)
             pulse.measure(qubits=[qubit_n], registers=[pulse.MemorySlot(mem_slot)])
 
         ramsey_schedules.append(ramsey_schedule)
