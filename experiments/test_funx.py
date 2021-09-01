@@ -1,13 +1,6 @@
 from .common_funx import *
 
-
-def classify(point: complex):
-    def distance(a, b):
-        return math.sqrt((np.real(a) - np.real(b))**2 + (np.imag(a) - np.imag(b))**2)
-    return int(distance(point, mean_exc) < distance(point, mean_gnd))
-
-
-def test_funx(backend, pi_ampl, rough_q_freq_Hz, qubit_n=0, drive_sigma_us=0.075, shots_per_freq=1024):
+def test_funx(backend, pi_ampl, rough_q_freq_Hz, qubit_n=0, mem_slot=0, drive_sigma_us=0.075, shots_per_freq=1024):
     drive_sigma_sec=drive_sigma_us*us
     drive_duration_sec=drive_sigma_sec*8
 
@@ -42,5 +35,9 @@ def test_funx(backend, pi_ampl, rough_q_freq_Hz, qubit_n=0, drive_sigma_us=0.075
         exc_results=gnd_exc_results.get_memory(1)[:, qubit_n]*scale_fact
         mean_gnd=np.mean(gnd_results)
         mean_exc=np.mean(exc_results)
+        return mean_gnd, mean_exc
+    else:
+        print(stats.value)
+        print(job.error_message())
 
 

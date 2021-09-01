@@ -1,3 +1,4 @@
+import math
 import numpy as np
 from qiskit import pulse
 from qiskit.circuit import Parameter
