@@ -1,6 +1,6 @@
 from .common_funx import *
 
-def t1(backend, pi_ampl, rough_q_freq_Hz, mean_gnd, mean_exc, qubit_n=0, mem_slot=0, drive_sigma_us=0.075, time_max_us=450, time_step_us=6.5, num_shots=256):
+def T1(backend, pi_ampl, rough_q_freq_Hz, mean_gnd, mean_exc, qubit_n=0, mem_slot=0, drive_sigma_us=0.075, time_max_us=450, time_step_us=6.5, num_shots=256):
     time_max_sec=time_max_us*us
     time_step_sec=time_step_us*us
     delay_times_sec = np.arange(1*us, time_max_sec, time_step_sec)
