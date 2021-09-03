@@ -1,7 +1,7 @@
 import csv
 data_log_file="calibration_parameters_log.csv"
 fields=["Time_Stamp", "Pi Amplitude", ""]
-rows=[]
+row=[]
 csv_file=open(data_log_file,'r+')
 csvwriter=csv.writer(csv_file)
 
@@ -46,6 +46,11 @@ list_of_qubits=range(1,num_of_qubits)
 
 for qubit in list_of_qubits:
 
+    ### Get Time Stamp into the CSV
+    current_time=time.ctime() + " " + time.tzname[1]
+    row.append(current_time)
+
+
     #Write qubit number which is getting calibrated now
     row.append(str(qubit))
 
@@ -60,11 +65,6 @@ for qubit in list_of_qubits:
 
         #Write loop number in CSV
         row.append(str(loop))
-
-
-        #Get Time Stamp into the CSV
-        current_time=time.ctime() + " " + time.tzname[1]
-        rows.append(current_time)
 
 
         #Call Rabi
