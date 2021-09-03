@@ -1,6 +1,6 @@
 import csv
 data_log_file="calibration_parameters_log.csv"
-fields=["Time_Stamp", "Pi Amplitude", ""]
+fields=["Time_Stamp", "Qubit_Number", "Qubit Freq (Freq Sweep)", "Loop number", "Pi Amplitude", "mean_gnd","mean_exc", "Precise Qubit Freq (Hz)"]
 row=[]
 csv_file=open(data_log_file,'r+')
 csvwriter=csv.writer(csv_file)
