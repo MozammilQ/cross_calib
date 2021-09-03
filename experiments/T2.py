@@ -23,7 +23,7 @@ def T2(backend, mean_gnd, mean_exc, precise_q_freq_Hz, pi_ampl, qubit_n=0, drive
 
     job=backend.run(t2_schedules, meas_level=1, meas_return='single', shots=shots_per_point)
 
-    print("\nJob submitted waiting for completion\n")
+    print("\nJob submitted for T2 Experiment waiting for completion\n")
     job.wait_for_final_state(timeout=None, wait=wait_time, callback=None)
     time.sleep(5)
     stats=job.status()

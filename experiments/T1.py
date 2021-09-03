@@ -23,7 +23,7 @@ def T1(backend, pi_ampl, rough_q_freq_Hz, mean_gnd, mean_exc, qubit_n=0, mem_slo
 
     job = backend.run(t1_schelds, meas_level=1, meas_return='single', shots=num_shots)
     
-    print("\nJob submitted waiting for completion\n")
+    print("\nJob submitted for T1 Experiment waiting for completion\n")
     job.wait_for_final_state(timeout=None, wait=wait_time, callback=None)
     time.sleep(5)
     stats=job.status()

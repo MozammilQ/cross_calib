@@ -21,7 +21,7 @@ def rabi_experiment(backend, rough_q_freq_Hz, qubit_n=0, mem_slot=0, rabi_points
 
     job=backend.run(rabi_schedl, meas_level=1, meas_return='avg', shots=shots_per_point)
     
-    print("\nJob submitted waiting for completion\n")
+    print("\nJob submitted for Rabi Experiment waiting for completion\n")
     job.wait_for_final_state(timeout=None, wait=wait_time, callback=None)
     time.sleep(5)
     stats=job.status()

@@ -29,7 +29,7 @@ def ramsey_experiment(backend, pi_ampl, rough_q_freq_Hz, mean_gnd, mean_exc, qub
         ramsey_schedules.append(ramsey_schedule)
 
     job = backend.run(ramsey_schedules, meas_level=1, meas_return='single', shots=num_shots)
-    print("\nJob submitted waiting for completion\n")
+    print("\nJob submitted for Ramsey Experiment waiting for completion\n")
     job.wait_for_final_state(timeout=None, wait=wait_time, callback=None)
     time.sleep(5)
     stats=job.status()

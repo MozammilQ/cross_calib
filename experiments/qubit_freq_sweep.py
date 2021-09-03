@@ -28,7 +28,7 @@ def qubit_freq_sweep(backend, qubit_n=0, mem_slot=0, freq_span_MHz=30, freq_step
     pulse_schelds=[sweep_sched.assign_parameters({freq: f}, inplace=False) for f in freq_sweep_Hz]
     job=backend.run(pulse_schelds, meas_level=1, meas_return='avg', shots=shots_per_freq)
 
-    print("\nJob submitted waiting for completion\n")
+    print("\nJob submitted for Frequency Sweep Experiment waiting for completion\n")
     job.wait_for_final_state(timeout=None, wait=wait_time, callback=None)
     time.sleep(5)
     stats=job.status()

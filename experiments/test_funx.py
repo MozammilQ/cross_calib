@@ -20,7 +20,7 @@ def test_funx(backend, pi_ampl, rough_q_freq_Hz, qubit_n=0, mem_slot=0, drive_si
 
     job = backend.run([gnd_schedule, exc_schedule], meas_level=1, meas_return='single', shots=shots_per_freq)
     
-    print("\nJob submitted waiting for completion\n")
+    print("\nJob submitted for test_funx waiting for completion\n")
     job.wait_for_final_state(timeout=None, wait=wait_time, callback=None)
     time.sleep(5)
     stats=job.status()
