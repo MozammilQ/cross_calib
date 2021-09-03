@@ -3,12 +3,12 @@ from .common_funx import *
 def remove_baseline(values):
     return np.array(values) - np.mean(values)
 
-def rabi_measurment(backend, rough_q_freq_Hz, qubit_n=0, mem_slot=0, rabi_points=50, drive_ampl_min=0, drive_ampl_max=0.75, drive_sigma_us=0.075,  shots_per_point=1024):
+def rabi_experiment(backend, rough_q_freq_Hz, qubit_n=0, mem_slot=0, rabi_points=50, drive_ampl_min=0, drive_ampl_max=0.75, drive_sigma_us=0.075,  shots_per_point=1024):
     drive_ampls=np.linspace(drive_ampl_min, drive_ampl_max, rabi_points)
     drive_ampl=Parameter('drive_amp')
     drive_sigma_sec=drive_sigma_us*us
     drive_duration_sec=drive_sigma_sec*8
-    with pulse.build(backend=backend, default_alignment='sequential', name='Rabi Measurment') as rabi_sched:
+    with pulse.build(backend=backend, default_alignment='sequential', name='Rabi Experiment') as rabi_sched:
         drive_duration=x_16(pulse.seconds_to_samples(drive_duration_sec))
         drive_sigma=x_16(pulse.seconds_to_samples(drive_sigma_sec))
         drive_chanl=pulse.drive_channel(qubit_n)
