@@ -4,6 +4,7 @@ fields=["Time_Stamp", "Qubit_Number", "Qubit Freq (Freq Sweep)", "Loop number", 
 row=[]
 csv_file=open(data_log_file,'r+')
 csvwriter=csv.writer(csv_file)
+csvwrite.writerow(fields)
 
 
 ###  Armonk has one qubit
@@ -90,6 +91,9 @@ for qubit in list_of_qubits:
         ### Write precise frequency determined by Ramsey Experiment in the CSV File
         row.append(str(precise_q_freq_Hz))
 
+
+
+        ### More codes to be added here
 
 
 
