@@ -70,12 +70,12 @@ for qubit in list_of_qubits:
 
         ### Rabi - Experiment Number: 1
         ###############################################################################################
-
-        #Call Rabi
+        ### Call Rabi
         pi_amplitude=rabi_experiment(backend=backend, rough_q_freq_Hz=qubit_freq, qubit_n=qubit, \
                 mem_slot=0, rabi_points=50, drive_ampl_min=0, drive_ampl_max=0.75, \
                 drive_sigma_us=drive_sigma_us,  shots_per_point=1024)
-        #Update the Pi Amplitude in CSV file
+
+        ### Write the Pi Amplitude in CSV file
         rows.append(str(pi_amplitude))
         ###############################################################################################
 
@@ -104,22 +104,25 @@ for qubit in list_of_qubits:
 
         ###  Rabi - Experiment Number: 3
         ###############################################################################################
-
-        #Call Rabi
+        ### Call Rabi
         pi_amplitude=rabi_experiment(backend=backend, rough_q_freq_Hz=qubit_freq, qubit_n=qubit, \
                 mem_slot=0, rabi_points=50, drive_ampl_min=0, drive_ampl_max=0.75, \
                 drive_sigma_us=drive_sigma_us,  shots_per_point=1024)
-        #Update the Pi Amplitude in CSV file
+
+        ### Write the Pi Amplitude in CSV file
         rows.append(str(pi_amplitude))
         ###############################################################################################
 
 
 
 
-        ### Q_Scale - Experiemnt Number: 4        ###############################################################################################
+        ### Q_Scale - Experiemnt Number: 4 
+        ###############################################################################################
+        ### Call q_scale
+        q_s=q_scale(backend, drive_duration_us, drive_sigma_us, precise_q_freq_Hz, amplitude, qubit_n=0,\
+                mem_slot=0, num_of_experiments=60, q_s_min=-1.5, q_s_max=+1.5, num_of_shots_per_point=1024)
 
-        q_s=q_scale(backend, drive_duration_us, drive_sigma_us, precise_q_freq_Hz, amplitude, qubit_n=0, mem_slot=0, num_of_experiments=60, q_s_min=-1.5, q_s_max=+1.5, num_of_shots_per_point=1024)
-        #Write q_s value to csv file
+        ### Write q_s value to csv file
         row.append(str(q_s))
         ###############################################################################################
 
@@ -128,13 +131,19 @@ for qubit in list_of_qubits:
 
         ### Rabi - Experiment Number: 5
         ###############################################################################################
-
+        ### Call Rabi
         pi_amplitude=rabi_experiment(backend=backend, rough_q_freq_Hz=qubit_freq, qubit_n=qubit, \
                 mem_slot=0, rabi_points=50, drive_ampl_min=0, drive_ampl_max=0.75, \
                 drive_sigma_us=drive_sigma_us,  shots_per_point=1024)
+
+        ### Write amplitude value of csv file
+        row.append(str(pi_amplitude))
         ###############################################################################################
 
 
+
+
+        ### CalTom - Experiment Number: 6
         ###############################################################################################
 
         ###############################################################################################
