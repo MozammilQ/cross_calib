@@ -14,7 +14,7 @@ scale_fact=1.0E-14
 wait_time=45
 
 def x_16(x):
-    return int(x+8)-int((x+8)%16)
+    return int(x+8)-(int(x+8)%16)
 
 def fit_fnx(x_val, y_val, fnx, init_params):
     fit_params, conv=curve_fit(fnx, x_val, y_val, init_params)
