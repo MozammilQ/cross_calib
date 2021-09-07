@@ -71,12 +71,12 @@ for qubit in list_of_qubits:
         ### Rabi - Experiment Number: 1
         ###############################################################################################
         ### Call Rabi
-        pi_amplitude=rabi_experiment(backend=backend, rough_q_freq_Hz=qubit_freq, qubit_n=qubit, \
+        pi_ampl_exp_1=rabi_experiment(backend=backend, rough_q_freq_Hz=qubit_freq, qubit_n=qubit, \
                 mem_slot=0, rabi_points=50, drive_ampl_min=0, drive_ampl_max=0.75, \
                 drive_sigma_us=drive_sigma_us,  shots_per_point=1024)
 
         ### Write the Pi Amplitude in CSV file
-        rows.append(str(pi_amplitude))
+        rows.append(str(pi_ampl_exp_1))
         ###############################################################################################
 
 
@@ -91,12 +91,12 @@ for qubit in list_of_qubits:
         ### Write mean_gnd, mean_exc values in CSV
         row.append(str(mean_gnd)+" "+str(mean_exc))
 
-        precise_q_freq_Hz=ramsey_experiment(backend=backend, pi_ampl=pi_amplitude, rough_q_freq_Hz=qubit_freq, \
+        precise_q_freq_Hz_exp_2=ramsey_experiment(backend=backend, pi_ampl=pi_ampl_exp_1, rough_q_freq_Hz=qubit_freq, \
                 mean_gnd=mean_gnd, mean_exc=mean_exc, qubit_n=qubit, mem_slot=0, time_max_us=1.8, \
                 time_step_us=0.025, drive_sigma_us=0.075, wait_time=45, num_shots=256)
 
         ### Write precise frequency determined by Ramsey Experiment in the CSV File
-        row.append(str(precise_q_freq_Hz))
+        row.append(str(precise_q_freq_Hz_exp_2))
         ###############################################################################################
 
 
@@ -105,12 +105,12 @@ for qubit in list_of_qubits:
         ###  Rabi - Experiment Number: 3
         ###############################################################################################
         ### Call Rabi
-        pi_amplitude=rabi_experiment(backend=backend, rough_q_freq_Hz=qubit_freq, qubit_n=qubit, \
+        pi_ampl_exp_3=rabi_experiment(backend=backend, rough_q_freq_Hz=precise_q_freq_Hz_exp_2, qubit_n=qubit, \
                 mem_slot=0, rabi_points=50, drive_ampl_min=0, drive_ampl_max=0.75, \
                 drive_sigma_us=drive_sigma_us,  shots_per_point=1024)
 
         ### Write the Pi Amplitude in CSV file
-        rows.append(str(pi_amplitude))
+        rows.append(str(pi_ampl_exp_3))
         ###############################################################################################
 
 
@@ -119,8 +119,13 @@ for qubit in list_of_qubits:
         ### Q_Scale - Experiemnt Number: 4 
         ###############################################################################################
         ### Call q_scale
-        q_s=q_scale(backend, drive_duration_us, drive_sigma_us, precise_q_freq_Hz, amplitude, qubit_n=0,\
-                mem_slot=0, num_of_experiments=60, q_s_min=-1.5, q_s_max=+1.5, num_of_shots_per_point=1024)
+        drive_sigma_ns=2.5*2
+        drive_duration_ns=10*2
+        q_s_min=-1.5
+        q_s_max=+1.5
+
+        q_s=q_scale(backend=backend, drive_duration_us=drive_duration_ns/1000, drive_sigma_us=drive_sigma_ns/1000, precise_q_freq_Hz=precise_q_freq_Hz_exp_2, \
+                amplitude=pi_ampl_exp_3, qubit_n=qubit, mem_slot=0, num_of_experiments=60, q_s_min=q_s_min, q_s_max=q_s_max, num_of_shots_per_point=1024)
 
         ### Write q_s value to csv file
         row.append(str(q_s))
@@ -132,12 +137,12 @@ for qubit in list_of_qubits:
         ### Rabi - Experiment Number: 5
         ###############################################################################################
         ### Call Rabi
-        pi_amplitude=rabi_experiment(backend=backend, rough_q_freq_Hz=qubit_freq, qubit_n=qubit, \
+        pi_ampl_exp_5=rabi_experiment(backend=backend, rough_q_freq_Hz=precise_q_freq_Hz_exp_2, qubit_n=qubit, \
                 mem_slot=0, rabi_points=50, drive_ampl_min=0, drive_ampl_max=0.75, \
                 drive_sigma_us=drive_sigma_us,  shots_per_point=1024)
 
         ### Write amplitude value of csv file
-        row.append(str(pi_amplitude))
+        row.append(str(pi_ampl_exp_5))
         ###############################################################################################
 
 
