@@ -124,12 +124,12 @@ for qubit in list_of_qubits:
         q_s_min=-1.5
         q_s_max=+1.5
 
-        q_s=q_scale(backend=backend, drive_duration_us=drive_duration_ns/1000, drive_sigma_us=drive_sigma_ns/1000, \
+        q_s_exp_4=q_scale(backend=backend, drive_duration_us=drive_duration_ns/1000, drive_sigma_us=drive_sigma_ns/1000, \
                 precise_q_freq_Hz=precise_q_freq_Hz_exp_2, amplitude=pi_ampl_exp_3, qubit_n=qubit, mem_slot=0,\
                 num_of_experiments=60, q_s_min=q_s_min, q_s_max=q_s_max, num_of_shots_per_point=1024)
 
         ### Write q_s value to csv file
-        row.append(str(q_s))
+        row.append(str(q_s_exp_4))
         ###############################################################################################
 
 
