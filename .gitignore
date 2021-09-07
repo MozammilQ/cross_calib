@@ -1,2 +1,5 @@
 __pycache__
 experiments/__pycache__
+.gitignore
+QScale.ipynb
+.ipynb_checkpoints
