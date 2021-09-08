@@ -45,7 +45,7 @@ def qubit_freq_sweep(backend, qubit_n=0, mem_slot=0, freq_span_MHz=30, freq_step
         fit_params, y_fit=fit_fnx(freq_sweep_Hz/GHz, np.real(sweep_val), data_fnx, init_param)
         A, rough_q_freq, B, C=fit_params
         rough_q_freq_Hz=rough_q_freq*GHz
-        return int(rough_q_freq_Hz)
+        return rough_q_freq_Hz
     else:
         print(f"Job status is -->> {stats.value}")
         print(job.error_message())
