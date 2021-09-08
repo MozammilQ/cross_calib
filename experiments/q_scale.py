@@ -40,7 +40,7 @@ def q_scale(backend, drive_duration_us, drive_sigma_us, precise_q_freq_Hz, ampli
         pulse.measure(qubits=[qubit_n], registers=[pulse.MemorySlot(mem_slot)])
 
 
-    q_s_range=np.linspace(-1.5,1.5,num_of_experiments)
+    q_s_range=np.linspace(q_s_min, q_s_max, num_of_experiments)
     schedules_x=[drag_pulse_x.assign_parameters({q_s: qscale}, inplace=False) for qscale in q_s_range]
     schedules_neg_y=[drag_pulse_neg_y.assign_parameters({q_s: qscale}, inplace=False) for qscale in q_s_range]
     schedules_y=[drag_pulse_y.assign_parameters({q_s: qscale}, inplace=False) for qscale in q_s_range]
@@ -83,7 +83,7 @@ def q_scale(backend, drive_duration_us, drive_sigma_us, precise_q_freq_Hz, ampli
 
     fit_data_fnx=lambda q_s_, m, c: (m*q_s_)+c
     init_param_y=[]
-    m_and_c_y, conv=curve_fit(fit_data_fnx, q_s_range, _x_val)
+    m_and_c_y, conv=curve_fit(fit_data_fnx, q_s_range, _y_val)
 
 
     init_param_neg_y=[]

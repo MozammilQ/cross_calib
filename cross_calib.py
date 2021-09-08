@@ -40,6 +40,8 @@ import time
 from experiments.qubit_freq_sweep import qubit_freq_sweep
 from experiments.rabi_experiment import rabi_experiment
 from experiments.ramsey_experiment import ramsey_experiment
+from experiments.rabi_drag_experiment import rabi_drag_experiment
+from experiments.q_scale import q_scale
 from experiments.pulse_collection import X90_Pulse, Pi_Pulse
 from experiments.test_funx import test_funx
 
@@ -138,12 +140,12 @@ for qubit in list_of_qubits:
         ### Rabi - Experiment Number: 5
         ###############################################################################################
         ### Call Rabi
-        pi_ampl_exp_5=rabi_experiment(backend=backend, rough_q_freq_Hz=precise_q_freq_Hz_exp_2, qubit_n=qubit, \
+        pi_ampl_drag_exp_5=rabi_drag_experiment(backend=backend, q_scale=q_s_exp_4, rough_q_freq_Hz=precise_q_freq_Hz_exp_2, qubit_n=qubit, \
                 mem_slot=0, rabi_points=50, drive_ampl_min=0, drive_ampl_max=0.75, \
                 drive_sigma_us=drive_sigma_us,  shots_per_point=1024)
 
         ### Write amplitude value of csv file
-        row.append(str(pi_ampl_exp_5))
+        row.append(str(pi_ampl_drag_exp_5))
         ###############################################################################################
 
 
