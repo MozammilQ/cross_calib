@@ -153,6 +153,9 @@ for qubit in list_of_qubits:
 
         ### CalTom - Experiment Number: 6
         ###############################################################################################
+        caltom_drive_druation_us=drive_sigm_us*4
+        CalTom(backend=backend, qubit_freq=precise_q_freq_Hz_exp_2, amplitude=pi_ampl_drag_exp_5, \
+                q_scale=q_s_exp_4, qubit_n=0, mem_slot=0, drive_duration_us=caltom_drive_duration_us, drive_sigma_us=drive_sigma_us)
 
         ###############################################################################################
 
