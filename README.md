@@ -1,7 +1,13 @@
 # cross_calib
 Implementation of Cross Calibration
 
-After reading this cross_calibration paper -->> https://qudev.phys.ethz.ch/static/content/science/Documents/semester/Andreas_Landig_semesterthesis_131020.pdf
+After reading these paper(s)
+
+-->> https://qudev.phys.ethz.ch/static/content/science/Documents/semester/Andreas_Landig_semesterthesis_131020.pdf
+
+-->> https://qudev.phys.ethz.ch/static/content/science/Documents/semester/Tim_Menke_Semester_Thesis_130829.pdf
+
+-->> https://www.research-collection.ethz.ch/handle/20.500.11850/153681
 
 Whatever I understood, the way they make pulses and the sequence of pulses they apply, I have tried to do it with qiskit.pulse
 
